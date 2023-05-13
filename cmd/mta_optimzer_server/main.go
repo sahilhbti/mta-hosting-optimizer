@@ -46,7 +46,7 @@ func main() {
 			context.JSON(http.StatusOK, resp.HostNames)
 		}
 	})
-	err = mtaHostingOptimizerService.Run(":80")
+	err := mtaHostingOptimizerService.Run(":80")
 	if err != nil {
 		fmt.Printf("error in running mtaHostingOptimizerService")
 	}
