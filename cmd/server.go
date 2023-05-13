@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"os"
 	"sync"
 	"time"
 
@@ -14,13 +15,17 @@ import (
 )
 
 func main() {
+	err := os.Setenv("X", "1")
+	if err != nil {
+		return
+	}
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
-		dataServiceIntializer := data_service.NewDataService()
+		dataServiceInitializer := data_service.NewDataService()
 		dataService := gin.Default()
 		dataService.GET("/", func(context *gin.Context) {
-			serverDetail, err := dataServiceIntializer.GetServerDetails(context)
+			serverDetail, err := dataServiceInitializer.GetServerDetails(context)
 			if err != nil {
 				context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			} else {
@@ -49,11 +54,11 @@ func main() {
 				DisableKeepAlives:     true,
 			},
 		}
-		mtaServiceIntializator := mta_hosting_optimizer_service.NewMtaHostingOptimizerService(httpClient)
+		mtaServiceInitializer := mta_hosting_optimizer_service.NewMtaHostingOptimizerService(httpClient)
 		mtaHostingOptimizerService := gin.Default()
 
 		mtaHostingOptimizerService.GET("/", func(context *gin.Context) {
-			resp, err := mtaServiceIntializator.GetUnderUtilizedHostName(context)
+			resp, err := mtaServiceInitializer.GetUnderUtilizedHostName(context)
 			if err != nil {
 				context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			} else {

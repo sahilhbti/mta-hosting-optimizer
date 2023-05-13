@@ -39,11 +39,11 @@ func NewMtaOptimizerController(httpClient *http.Client) *MtaOptimizerController 
 func (m *MtaOptimizerController) GetUnderUtilizedHost(ctx *gin.Context, request *GetUnderUtilizedHostRequest) (*GetUnderUtilizedHostResponse, error) {
 	var hostNames []string
 	hostNameToActiveCount := make(map[string]int)
-	serversDetailresp, err := m.ServersDetail.GetServersDetail(ctx, &server_detail.GetServersDetailRequest{})
+	serversDetailResp, err := m.ServersDetail.GetServersDetail(ctx, &server_detail.GetServersDetailRequest{})
 	if err != nil {
 		return nil, fmt.Errorf("error in getting server detail %s", err)
 	}
-	serversDetail := serversDetailresp.ServerData
+	serversDetail := serversDetailResp.ServerData
 	thresholdValue, err := strconv.Atoi(os.Getenv("X"))
 	if err != nil {
 		return nil, fmt.Errorf("error in parsing threshold", err)
