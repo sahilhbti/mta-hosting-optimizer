@@ -11,6 +11,8 @@ import (
 	"github.com/mta-hosting-optimizer/data_service/models"
 )
 
+
+//go:generate mockgen -source=$PWD/server_detail.go -destination=$PWD/mocks/server_detail.go -package=mocks
 type IServersDetail interface {
 	GetServersDetail(ctx *gin.Context, request *GetServersDetailRequest) (*GetServersDetailResponse, error)
 }

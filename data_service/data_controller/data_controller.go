@@ -2,6 +2,8 @@ package data_controller
 
 import "github.com/mta-hosting-optimizer/data_service/models"
 
+
+//go:generate mockgen -source=$PWD/data_controller.go -destination=$PWD/mocks/data_controller.go -package=mocks
 type IDataController interface {
 	GetServerData(*GetServerDatRequest) (*GetServerDataResponse, error)
 }

@@ -11,6 +11,7 @@ import (
 	"github.com/mta-hosting-optimizer/mta_hosting_optimizer_service/server_detail"
 )
 
+//go:generate mockgen -source=$PWD/mta_optimzer_controller.go -destination=$PWD/mocks/mta_optimzer_controller.go -package=mocks
 type IMtaOptimizerController interface {
 	GetUnderUtilizedHost(*gin.Context, *GetUnderUtilizedHostRequest) (*GetUnderUtilizedHostResponse, error)
 }
@@ -46,7 +47,7 @@ func (m *MtaOptimizerController) GetUnderUtilizedHost(ctx *gin.Context, request 
 	serversDetail := serversDetailResp.ServerData
 	thresholdValue, err := strconv.Atoi(os.Getenv("X"))
 	if err != nil {
-		return nil, fmt.Errorf("error in parsing threshold", err)
+		return nil, fmt.Errorf("error in parsing threshold %s", err)
 	}
 	for _, eachServerDetail := range serversDetail {
 		if eachServerDetail.Active == true {
