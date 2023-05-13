@@ -31,6 +31,7 @@ func main() {
 	var env string
 	env, err := GetEnvironment()
 	if err != nil {
+		log.Fatalf("error in getting env %s", err)
 		return
 	}
 	config := LoadConfig(env)
