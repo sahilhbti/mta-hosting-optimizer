@@ -11,7 +11,6 @@ import (
 	"github.com/mta-hosting-optimizer/data_service/models"
 )
 
-
 //go:generate mockgen -source=$PWD/server_detail.go -destination=$PWD/mocks/server_detail.go -package=mocks
 type IServersDetail interface {
 	GetServersDetail(ctx *gin.Context, request *GetServersDetailRequest) (*GetServersDetailResponse, error)
@@ -29,7 +28,7 @@ type ServersDetail struct {
 }
 
 func (s *ServersDetail) GetServersDetail(ctx *gin.Context, request *GetServersDetailRequest) (*GetServersDetailResponse, error) {
-	req, err := http.NewRequestWithContext(ctx, "GET", "http://localhost:9517/", nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", "http://ec2-3-111-218-77.ap-south-1.compute.amazonaws.com", nil)
 	if err != nil {
 		return nil, fmt.Errorf("error in building request: %w", err)
 	}
