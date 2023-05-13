@@ -37,6 +37,11 @@ func (s *ServersDetail) GetServersDetail(ctx *gin.Context, request *GetServersDe
 	if err != nil {
 		return nil, fmt.Errorf("error parser request: %w", err)
 	}
+	defer func() {
+		if resp != nil && resp.Body != nil {
+			_ = resp.Body.Close()
+		}
+	}()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("error in reading response: %w", err)
