@@ -32,7 +32,7 @@ func main() {
 				context.JSON(http.StatusOK, serverDetail)
 			}
 		})
-		err := dataService.Run(":8080")
+		err := dataService.Run(":443")
 		if err != nil {
 			fmt.Printf("error in running DataService")
 		}
