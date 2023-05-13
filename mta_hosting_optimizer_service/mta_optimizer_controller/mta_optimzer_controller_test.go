@@ -2,6 +2,7 @@ package mta_optimizer_controller
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -35,6 +36,7 @@ func TestMtaOptimizerController_GetUnderUtilizedHost(t *testing.T) {
 		ctx     *gin.Context
 		request *GetUnderUtilizedHostRequest
 	}
+	fmt.Println("x")
 	tests := []struct {
 		name                 string
 		fields               fields
