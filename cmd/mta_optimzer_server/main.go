@@ -2,15 +2,30 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 	"net"
 	"net/http"
 	"os"
+	"path/filepath"
+	"runtime"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"gopkg.in/yaml.v3"
 
 	"github.com/mta-hosting-optimizer/mta_hosting_optimizer_service"
 )
+
+var (
+	_, b, _, _ = runtime.Caller(0)
+)
+
+type Config struct {
+	Environment    string `yaml:"Environment"`
+	DataServerUrl  string `yaml:"DataServerUrl"`
+	MtaServicePort int    `yaml:"MtaServicePort"`
+}
 
 func main() {
 	var env string
@@ -68,4 +83,21 @@ func GetEnvironment() (string, error) {
 		envLoadErr = fmt.Errorf("env var `ENVIRONMENT` is not set")
 	}
 	return envName, envLoadErr
+}
+
+func LoadConfig(env string) *Config {
+	var config Config
+	fileName := "/mta-" + env + ".yml"
+	configPath := filepath.Join(b, "..")
+	configFilepath := configPath + fileName
+	yamlFile, err := ioutil.ReadFile(configFilepath)
+	if err != nil || yamlFile == nil {
+		log.Printf("yamlFile.Get err   #%v ", err)
+	}
+	err = yaml.Unmarshal(yamlFile, &config)
+	if err != nil {
+		log.Fatalf("Unmarshal: %v", err)
+	}
+	return &config
+
 }
