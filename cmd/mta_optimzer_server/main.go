@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+	fmt.Println("X value:", os.Getenv("X"))
 	err := os.Setenv("X", "1")
 	if err != nil {
 		return
