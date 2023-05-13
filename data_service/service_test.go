@@ -2,6 +2,7 @@ package data_service
 
 import (
 	"errors"
+	"fmt"
 	"net/http/httptest"
 	"reflect"
 	"testing"
@@ -24,6 +25,7 @@ func TestDataService_GetServerDetails(t *testing.T) {
 	type fields struct {
 		dataController data_controller.IDataController
 	}
+	fmt.Println("x")
 	type args struct {
 		ctx *gin.Context
 	}
