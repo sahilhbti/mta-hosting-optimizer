@@ -1,0 +1,3 @@
+Environment: "test"
+DataServerUrl : "http://localhost"
+MtaServicePort : 8080

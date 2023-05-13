@@ -28,11 +28,12 @@ type MtaOptimizerController struct {
 	ServersDetail server_detail.IServersDetail
 }
 
-func NewMtaOptimizerController(httpClient *http.Client) *MtaOptimizerController {
+func NewMtaOptimizerController(httpClient *http.Client, url string) *MtaOptimizerController {
 	return &MtaOptimizerController{
 		HttpClient: httpClient,
 		ServersDetail: &server_detail.ServersDetail{
 			HttpClient: httpClient,
+			Url:        url,
 		},
 	}
 }

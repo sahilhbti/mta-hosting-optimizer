@@ -13,6 +13,12 @@ import (
 )
 
 func main() {
+	var env string
+	env, err := GetEnvironment()
+	if err != nil {
+		return
+	}
+	config := LoadConfig(env)
 	thresholdValue := os.Getenv("X")
 	if thresholdValue == "" {
 		err := os.Setenv("X", "1")
@@ -20,6 +26,7 @@ func main() {
 			return
 		}
 	}
+
 	httpClient := &http.Client{
 		Timeout: 5 * time.Second,
 		Transport: &http.Transport{
@@ -35,7 +42,7 @@ func main() {
 			DisableKeepAlives:     true,
 		},
 	}
-	mtaServiceInitializer := mta_hosting_optimizer_service.NewMtaHostingOptimizerService(httpClient)
+	mtaServiceInitializer := mta_hosting_optimizer_service.NewMtaHostingOptimizerService(httpClient, config.DataServerUrl)
 	mtaHostingOptimizerService := gin.Default()
 
 	mtaHostingOptimizerService.GET("/", func(context *gin.Context) {
@@ -46,8 +53,19 @@ func main() {
 			context.JSON(http.StatusOK, resp.HostNames)
 		}
 	})
-	err := mtaHostingOptimizerService.Run(":8080")
+	err = mtaHostingOptimizerService.Run(fmt.Sprintf(":%d", config.MtaServicePort))
 	if err != nil {
 		fmt.Printf("error in running mtaHostingOptimizerService")
 	}
+}
+
+func GetEnvironment() (string, error) {
+	var ok bool
+	var envLoadErr error
+	envName, ok := os.LookupEnv("ENVIRONMENT")
+
+	if !ok {
+		envLoadErr = fmt.Errorf("env var `ENVIRONMENT` is not set")
+	}
+	return envName, envLoadErr
 }

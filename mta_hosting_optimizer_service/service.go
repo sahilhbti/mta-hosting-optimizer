@@ -13,8 +13,8 @@ type MtaHostingOptimizerService struct {
 	mtaOptimizerController mta_optimizer_controller.IMtaOptimizerController
 }
 
-func NewMtaHostingOptimizerService(httpClient *http.Client) *MtaHostingOptimizerService {
-	mtaController := mta_optimizer_controller.NewMtaOptimizerController(httpClient)
+func NewMtaHostingOptimizerService(httpClient *http.Client, url string) *MtaHostingOptimizerService {
+	mtaController := mta_optimizer_controller.NewMtaOptimizerController(httpClient, url)
 	return &MtaHostingOptimizerService{
 		mtaOptimizerController: mtaController,
 	}

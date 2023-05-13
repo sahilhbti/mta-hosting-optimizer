@@ -25,10 +25,11 @@ type GetServersDetailResponse struct {
 
 type ServersDetail struct {
 	HttpClient *http.Client
+	Url        string
 }
 
 func (s *ServersDetail) GetServersDetail(ctx *gin.Context, request *GetServersDetailRequest) (*GetServersDetailResponse, error) {
-	req, err := http.NewRequestWithContext(ctx, "GET", "http://ec2-3-111-218-77.ap-south-1.compute.amazonaws.com", nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", s.Url+":80", nil)
 	if err != nil {
 		return nil, fmt.Errorf("error in building request: %w", err)
 	}

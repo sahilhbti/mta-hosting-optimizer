@@ -1,0 +1,3 @@
+Environment: "development"
+DataServerUrl : "http://ec2-3-111-218-77.ap-south-1.compute.amazonaws.com"
+MtaServicePort : 80
