@@ -13,10 +13,12 @@ import (
 )
 
 func main() {
-	fmt.Println("X value:", os.Getenv("X"))
-	err := os.Setenv("X", "1")
-	if err != nil {
-		return
+	thresholdValue := os.Getenv("X")
+	if thresholdValue == "" {
+		err := os.Setenv("X", "1")
+		if err != nil {
+			return
+		}
 	}
 	httpClient := &http.Client{
 		Timeout: 5 * time.Second,
