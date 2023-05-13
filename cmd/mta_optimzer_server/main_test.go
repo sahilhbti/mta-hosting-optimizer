@@ -1,5 +1,4 @@
-//go:build integration
-// +build integration
+//go:build integration && !unit_test
 
 package main
 
@@ -85,6 +84,10 @@ func runTestServer() *httptest.Server {
 
 func Test_get_under_utilized_host_name(t *testing.T) {
 	err := os.Setenv("X", "1")
+	if err != nil {
+		return
+	}
+	err = os.Setenv("ENVIRONMENT", "test")
 	if err != nil {
 		return
 	}

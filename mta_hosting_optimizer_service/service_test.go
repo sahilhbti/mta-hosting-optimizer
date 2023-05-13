@@ -1,3 +1,5 @@
+//go:build unit_test && !integration
+
 package mta_hosting_optimizer_service
 
 import (

@@ -1,3 +1,5 @@
+//go:build unit_test && !integration
+
 package mta_optimizer_controller
 
 import (
@@ -6,6 +8,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"reflect"
+	"sort"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -116,6 +119,12 @@ func TestMtaOptimizerController_GetUnderUtilizedHost(t *testing.T) {
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetUnderUtilizedHost() error = %v, wantErr %v", err, tt.wantErr)
 				return
+			}
+			if got != nil {
+				sort.Strings(got.HostNames)
+			}
+			if tt.want != nil && len(tt.want.HostNames) > 0 {
+				sort.Strings(tt.want.HostNames)
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetUnderUtilizedHost() got = %v, want %v", got, tt.want)

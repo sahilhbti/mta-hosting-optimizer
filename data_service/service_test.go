@@ -1,3 +1,5 @@
+//go:build unit_test && !integration
+
 package data_service
 
 import (

@@ -24,8 +24,11 @@ jobs:
     - name: Build
       run: go build -v ./...
 
-    - name: Test
-      run: go test -v -coverprofile cover.out  ./...
+    - name: unit-test
+      run: go test -v -coverprofile cover.out  ./... -tags unit_test
 
-    - name: Integration-Test
-      run: go test -v -tags=integration  ./...
+    - name: integration-test
+      run: go test -v -coverprofile cover.out  ./... -tags integration
+
+
+
