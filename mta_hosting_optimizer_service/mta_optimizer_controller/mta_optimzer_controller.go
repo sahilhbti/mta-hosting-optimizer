@@ -52,7 +52,7 @@ func (m *MtaOptimizerController) GetUnderUtilizedHost(ctx *gin.Context, request 
 		if eachServerDetail.Active == true {
 			hostNameToActiveCount[eachServerDetail.HostName]++
 		} else {
-			hostNameTActiveCount[eachServerDetail.HostName] = hostNameToActiveCount[eachServerDetail.HostName] + 0
+			hostNameToActiveCount[eachServerDetail.HostName] = hostNameToActiveCount[eachServerDetail.HostName] + 0
 		}
 	}
 	for hostName, activeIpAddressesCount := range hostNameToActiveCount {
