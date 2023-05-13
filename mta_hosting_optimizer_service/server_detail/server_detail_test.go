@@ -34,17 +34,20 @@ func TestServersDetail_GetServersDetail(t *testing.T) {
 		mockServerDetail *mockServerDetail
 		wantErr          bool
 	}{
-		//{
-		//	name: "unable to make http request",
-		//	mockServerDetail: &mockServerDetail{
-		//		ResponseStatus: 504,
-		//		Response:       nil,
-		//	},
-		//	fields: fields{
-		//		HttpClient: &http.Client{},
-		//	},
-		//	wantErr: true,
-		//},
+		{
+			name: "unable to make http request",
+			mockServerDetail: &mockServerDetail{
+				ResponseStatus: 504,
+				Response:       nil,
+			},
+			args: args{
+				ctx: c,
+			},
+			fields: fields{
+				HttpClient: &http.Client{},
+			},
+			wantErr: true,
+		},
 		{
 			name: "http request successfull",
 			mockServerDetail: &mockServerDetail{

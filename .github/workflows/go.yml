@@ -26,3 +26,6 @@ jobs:
 
     - name: Test
       run: go test -v -coverprofile cover.out  ./...
+
+    - name: Integration-Test
+      run: go test -v -tags=integration  ./...

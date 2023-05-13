@@ -35,7 +35,7 @@ func (s *ServersDetail) GetServersDetail(ctx *gin.Context, request *GetServersDe
 	}
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := s.HttpClient.Do(req)
-	if err != nil {
+	if err != nil || resp == nil || resp.StatusCode != 200 {
 		return nil, fmt.Errorf("error parser request: %w", err)
 	}
 	defer func() {
