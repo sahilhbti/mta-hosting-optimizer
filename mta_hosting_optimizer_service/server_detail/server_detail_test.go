@@ -76,12 +76,13 @@ func TestServersDetail_GetServersDetail(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gock.New("http://ec2-3-111-218-77.ap-south-1.compute.amazonaws.com").
+			gock.New("http://localhost").
 				Reply(tt.mockServerDetail.ResponseStatus).
 				JSON(tt.mockServerDetail.Response)
 
 			s := &ServersDetail{
 				HttpClient: tt.fields.HttpClient,
+				Url:        "http://localhost",
 			}
 			got, err := s.GetServersDetail(tt.args.ctx, tt.args.request)
 			if (err != nil) != tt.wantErr {
