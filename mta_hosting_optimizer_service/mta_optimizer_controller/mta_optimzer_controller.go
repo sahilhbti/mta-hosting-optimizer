@@ -49,6 +49,7 @@ func (m *MtaOptimizerController) GetUnderUtilizedHost(ctx *gin.Context, request 
 	if err != nil {
 		return nil, fmt.Errorf("error in parsing threshold %s", err)
 	}
+	fmt.Println(thresholdValue)
 	for _, eachServerDetail := range serversDetail {
 		if eachServerDetail.Active == true {
 			hostNameToActiveCount[eachServerDetail.HostName]++
