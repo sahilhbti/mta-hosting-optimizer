@@ -29,7 +29,7 @@ type ServersDetail struct {
 }
 
 func (s *ServersDetail) GetServersDetail(ctx *gin.Context, request *GetServersDetailRequest) (*GetServersDetailResponse, error) {
-	req, err := http.NewRequestWithContext(ctx, "GET", s.Url+":80", nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", s.Url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error in building request: %w", err)
 	}

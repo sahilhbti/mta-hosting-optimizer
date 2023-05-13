@@ -68,7 +68,7 @@ func setupServer() *gin.Engine {
 		}
 	})
 	go func() {
-		err = dataService.Run(":80")
+		err = dataService.Run(":9090")
 		if err != nil {
 			fmt.Println(err)
 		}
