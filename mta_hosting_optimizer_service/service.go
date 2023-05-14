@@ -18,7 +18,6 @@ func NewMtaHostingOptimizerService(httpClient *http.Client, url string) *MtaHost
 	return &MtaHostingOptimizerService{
 		mtaOptimizerController: mtaController,
 	}
-
 }
 
 func (service *MtaHostingOptimizerService) GetUnderUtilizedHostName(ctx *gin.Context) (*models.GetUnderUtilizedHostNameResponse, error) {

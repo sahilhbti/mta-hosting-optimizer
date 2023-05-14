@@ -4,6 +4,7 @@ package mta_hosting_optimizer_service
 
 import (
 	"errors"
+	"net/http"
 	"net/http/httptest"
 	"reflect"
 	"testing"
@@ -83,6 +84,36 @@ func TestMtaHostingOptimizerService_GetUnderUtilizedHostName(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetUnderUtilizedHostName() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNewMtaHostingOptimizerService(t *testing.T) {
+	type args struct {
+		httpClient *http.Client
+		url        string
+	}
+	tests := []struct {
+		name string
+		args args
+		want *MtaHostingOptimizerService
+	}{
+		{
+			name: "test",
+			args: args{
+				httpClient: nil,
+				url:        "test-url",
+			},
+			want: &MtaHostingOptimizerService{
+				mtaOptimizerController: mta_optimizer_controller.NewMtaOptimizerController(nil, "test-url"),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := NewMtaHostingOptimizerService(tt.args.httpClient, tt.args.url); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewMtaHostingOptimizerService() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -103,3 +103,24 @@ func TestDataService_GetServerDetails(t *testing.T) {
 		})
 	}
 }
+
+func TestNewDataService(t *testing.T) {
+	tests := []struct {
+		name string
+		want *DataService
+	}{
+		{
+			name: "test",
+			want: &DataService{
+				dataController: data_controller.NewDataController(),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := NewDataService(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewDataService() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

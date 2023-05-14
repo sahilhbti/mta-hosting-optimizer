@@ -72,3 +72,22 @@ func TestDataController_GetServerData(t *testing.T) {
 		})
 	}
 }
+
+func TestNewDataController(t *testing.T) {
+	tests := []struct {
+		name string
+		want *DataController
+	}{
+		{
+			name: "test",
+			want: &DataController{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := NewDataController(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewDataController() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
